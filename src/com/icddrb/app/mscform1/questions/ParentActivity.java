@@ -246,12 +246,12 @@ public class ParentActivity extends BaseActivity implements FormListener {
 	private int TimeMinute;
 
 	// fromyeartomin
-	private EditText yearBox, monthBox, weekBox, dayBox, hourBox, minBox;
-	private TextView yearText, monthText, weekText, dayText, hourText, minText;
+	private EditText yearBox, monthBox, weekBox, dayBox, hourBox, minBox,secBox;
+	private TextView yearText, monthText, weekText, dayText, hourText, minText,secText;
 	private LinearLayout yearHolder, monthHolder, weekHolder, dayHolder,
-			hourHolder, minHolder;
+			hourHolder, minHolder, secHolder;
 	private String year = "", month = "", week = "", day = "", hour = "",
-			min = "";
+			min = "", sec = "";
 
 	// frmNumeric_with_unknown_decline
 	RadioGroup radioGroup;
@@ -2285,7 +2285,25 @@ public class ParentActivity extends BaseActivity implements FormListener {
 			ln.addView(spinner, 0, layoutParamForSpin);
 			// added by imtiaz khan
 			if (CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
-					.getQvar().equalsIgnoreCase("q1") 
+					.getQvar().equalsIgnoreCase("q2_3") 
+					||
+					CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+					.getQvar().equalsIgnoreCase("q20")
+					||
+					CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+					.getQvar().equalsIgnoreCase("q22")
+					||
+					CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+					.getQvar().equalsIgnoreCase("q32")
+					||
+					CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+					.getQvar().equalsIgnoreCase("q34")
+					||
+					CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+					.getQvar().equalsIgnoreCase("q44")
+					||
+					CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+					.getQvar().equalsIgnoreCase("q46")
 					) {
 
 				// for Reading data from a specific table like user, member etc.
@@ -2298,23 +2316,15 @@ public class ParentActivity extends BaseActivity implements FormListener {
 
 				try {
 					
-					if (CommonStaticClass.questionMap
-							.get(CommonStaticClass.currentSLNo).getQvar()
-							.equalsIgnoreCase("q1")
-
-							) {
+					
 						sql = String.format("select * from tblUser");
-					}
+					
 					
 					
 					mCursor = dbHelper.getQueryCursor(sql);
 					if (mCursor.moveToFirst()) {
 						do {
-							if (CommonStaticClass.questionMap
-									.get(CommonStaticClass.currentSLNo).getQvar()
-									.equalsIgnoreCase("q1"))
-
-							{
+							
 								users.add(mCursor.getString(mCursor
 										.getColumnIndex("ID"))
 										+ " : "
@@ -2323,31 +2333,13 @@ public class ParentActivity extends BaseActivity implements FormListener {
 								userIDs.add(mCursor.getString(mCursor
 										.getColumnIndex("ID")));
 
-							}
 
 							
 						} while (mCursor.moveToNext());
 					}
 					// Code: imtiaz khan 
 
-					if (CommonStaticClass.langBng
-							&& (CommonStaticClass.questionMap
-									.get(CommonStaticClass.currentSLNo).getQvar()
-									.equalsIgnoreCase("q011")
-									|| CommonStaticClass.questionMap
-											.get(CommonStaticClass.currentSLNo)
-											.getQvar()
-											.equalsIgnoreCase("cropfishcode1") || CommonStaticClass.questionMap
-									.get(CommonStaticClass.currentSLNo).getQvar()
-									.equalsIgnoreCase("cropfishcode2"))) {
-						adapterForCombo = new SpinAdapter(this, users, true);
-
-						adapterForCombo
-								.setDropDownViewResource(CommonStaticClass.langBng ? R.layout.checkedspintextview
-										: android.R.layout.simple_spinner_dropdown_item);
-						spinner.setAdapter(adapterForCombo);
-
-					} else {
+					
 
 						adapterForCombo = new ArrayAdapter(this,
 								android.R.layout.simple_spinner_item, users);
@@ -2355,7 +2347,7 @@ public class ParentActivity extends BaseActivity implements FormListener {
 								.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 						spinner.setAdapter(adapterForCombo);
-					}
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
@@ -2513,13 +2505,30 @@ public class ParentActivity extends BaseActivity implements FormListener {
 					if (parent.getItemAtPosition(pos).toString().length() > 0) {
 						if (CommonStaticClass.questionMap
 								.get(CommonStaticClass.currentSLNo).getQvar()
-								.equalsIgnoreCase("q1") 
+								.equalsIgnoreCase("q2_3") 
 								)
 							sResCode = parent
 									.getItemAtPosition(pos)
 									.toString()
 									;
-						
+						else if(CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+								.getQvar().equalsIgnoreCase("q20")
+								||
+								CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+								.getQvar().equalsIgnoreCase("q22")
+								||
+								CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+								.getQvar().equalsIgnoreCase("q32")
+								||
+								CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+								.getQvar().equalsIgnoreCase("q34")
+								||
+								CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+								.getQvar().equalsIgnoreCase("q44")
+								||
+								CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+								.getQvar().equalsIgnoreCase("q46"))
+							sResCode = userIDs.get(pos).toString();
 						else if( CommonStaticClass.questionMap
 								.get(CommonStaticClass.currentSLNo).getQvar()
 								.equalsIgnoreCase("q7"))
@@ -2573,65 +2582,32 @@ public class ParentActivity extends BaseActivity implements FormListener {
 								String a = mCursor1.getString(mCursor1
 										.getColumnIndex(column.toLowerCase())) + "";
 
-								if (CommonStaticClass.questionMap
-										.get(CommonStaticClass.currentSLNo)
-										.getQvar().equalsIgnoreCase("userid")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar().equalsIgnoreCase("dist")
-
-										|| CommonStaticClass.questionMap
+								if ( CommonStaticClass.questionMap
 												.get(CommonStaticClass.currentSLNo)
 												.getQvar()
-												.equalsIgnoreCase("upazilla")
-
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar().equalsIgnoreCase("upa")
-
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar().equalsIgnoreCase("q1_5")
-
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar().equalsIgnoreCase("c1_8")
-
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("c1_10")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("crosscheckby")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("cropfishcode")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("cropfishcode1")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar().equalsIgnoreCase("q011")
-
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("q1")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("q7")
-										|| CommonStaticClass.questionMap
-												.get(CommonStaticClass.currentSLNo)
-												.getQvar()
-												.equalsIgnoreCase("q62_13"))
+												.equalsIgnoreCase("q2_3"))
 
 									index = CommonStaticClass
 											.GetIndexFromCollection(users, a);
+								else if(CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+										.getQvar().equalsIgnoreCase("q20")
+										||
+										CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+										.getQvar().equalsIgnoreCase("q22")
+										||
+										CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+										.getQvar().equalsIgnoreCase("q32")
+										||
+										CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+										.getQvar().equalsIgnoreCase("q34")
+										||
+										CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+										.getQvar().equalsIgnoreCase("q44")
+										||
+										CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo)
+										.getQvar().equalsIgnoreCase("q46"))
+									index = CommonStaticClass
+									.GetIndexFromCollectionUsingID(users, a);
 								
 								else
 									index = CommonStaticClass
@@ -13906,7 +13882,8 @@ else {
 		dayText = (TextView) v.findViewById(R.id.dayText);
 		hourText = (TextView) v.findViewById(R.id.hourText);
 		minText = (TextView) v.findViewById(R.id.minText);
-
+		secText = (TextView) v.findViewById(R.id.secText);
+		
 		if (CommonStaticClass.langBng) {
 			if (CommonStaticClass.questionMap
 					.get(CommonStaticClass.currentSLNo).getQdescbng().length() > 0) {
@@ -13919,6 +13896,7 @@ else {
 				dayText.setTypeface(font);
 				hourText.setTypeface(font);
 				minText.setTypeface(font);
+				secText.setTypeface(font);
 
 				weekText.setText("mÃŸvn");
 				yearText.setText("eQi");
@@ -13926,6 +13904,7 @@ else {
 				dayText.setText("w`b");
 				hourText.setText("N›Uv");
 				minText.setText("wgwbU ");
+				secText.setText("†m‡KÛ ");
 			}
 			;
 			qqq.setText(CommonStaticClass.questionMap
@@ -13941,12 +13920,14 @@ else {
 			weekText.setText("Weeks");
 			hourText.setText("Hours");
 			minText.setText("Minutes ");
+			secText.setText("Seconds ");
 			yearText.setTypeface(null);
 			monthText.setTypeface(null);
 			weekText.setTypeface(null);
 			dayText.setTypeface(null);
 			hourText.setTypeface(null);
 			minText.setTypeface(null);
+			secText.setTypeface(null);
 			qqq.setTypeface(null);
 			qqq.setText(CommonStaticClass.questionMap.get(
 					CommonStaticClass.currentSLNo).getQdesceng());
@@ -14000,6 +13981,8 @@ else {
 		dayHolder = (LinearLayout) v.findViewById(R.id.dayHolder);
 		hourHolder = (LinearLayout) v.findViewById(R.id.hourHolder);
 		minHolder = (LinearLayout) v.findViewById(R.id.minHolder);
+		secHolder = (LinearLayout) v.findViewById(R.id.secHolder);
+		
 
 		yearBox = (EditText) v.findViewById(R.id.yearBox);
 		monthBox = (EditText) v.findViewById(R.id.monthBox);
@@ -14007,6 +13990,7 @@ else {
 		dayBox = (EditText) v.findViewById(R.id.dayBox);
 		hourBox = (EditText) v.findViewById(R.id.hourBox);
 		minBox = (EditText) v.findViewById(R.id.minBox);
+		secBox = (EditText) v.findViewById(R.id.secBox);
 
 		String sql = "Select * from "
 				+ CommonStaticClass.questionMap.get(
@@ -14038,6 +14022,9 @@ else {
 					String minColumn = CommonStaticClass.questionMap.get(
 							CommonStaticClass.currentSLNo).getQvar()
 							+ "mins";
+					String secColumn = CommonStaticClass.questionMap.get(
+							CommonStaticClass.currentSLNo).getQvar()
+							+ "seconds";
 
 					if (mCursor1.getColumnIndex(weekColumn) != -1) {
 						weekHolder.setVisibility(View.VISIBLE);
@@ -14080,6 +14067,13 @@ else {
 								.getColumnIndex(minColumn)));
 					} else {
 						minHolder.setVisibility(View.GONE);
+					}
+					if (mCursor1.getColumnIndex(minColumn) != -1) {
+						secHolder.setVisibility(View.VISIBLE);
+						secBox.setText(mCursor1.getString(mCursor1
+								.getColumnIndex(secColumn)));
+					} else {
+						secHolder.setVisibility(View.GONE);
 					}
 				} while (mCursor1.moveToNext());
 			}
@@ -14160,6 +14154,16 @@ else {
 							.get(i) : op.capEngList.get(i));
 				} else {
 					minText.setText(op.capEngList.get(i));
+				}
+			}
+			if (op.qidList.get(i).contains("seconds")) {
+				secHolder.setVisibility(View.VISIBLE);
+
+				if (CommonStaticClass.langBng) {
+					secText.setText(op.capBngList.get(i).length() > 0 ? op.capBngList
+							.get(i) : op.capEngList.get(i));
+				} else {
+					secText.setText(op.capEngList.get(i));
 				}
 			}
 		}
@@ -14394,7 +14398,7 @@ else {
 		// TODO Auto-generated method stub
 		//little bit modified for maternal healt app
 		if (yearHolder.getVisibility() == View.VISIBLE) {
-			if (!(yearBox.getText().toString().length() > 0) 
+			if (!(yearBox.getText().toString().length() >= 0) 
 					|| ((Integer.parseInt(yearBox.getText().toString())> 2015)
 					&& Integer.parseInt(yearBox.getText().toString())!=9998)
 					)
@@ -14405,7 +14409,7 @@ else {
 			}
 		}
 		if (monthHolder.getVisibility() == View.VISIBLE) {
-			if (!(monthBox.getText().toString().length() > 0)
+			if (!(monthBox.getText().toString().length() >= 0)
 					|| (Integer.parseInt(monthBox.getText().toString()) !=98
 					&& Integer.parseInt(monthBox.getText().toString())>12)) {
 				CommonStaticClass.showMyAlert(con, "Error",
@@ -14414,14 +14418,14 @@ else {
 			}
 		}
 		if (weekHolder.getVisibility() == View.VISIBLE) {
-			if (!(weekBox.getText().toString().length() > 0)) {
+			if (!(weekBox.getText().toString().length() >= 0)) {
 				CommonStaticClass.showMyAlert(con, "Error",
 						"You must provide correct data to proceed");
 				return;
 			}
 		}
 		if (dayHolder.getVisibility() == View.VISIBLE) {
-			if (!(dayBox.getText().toString().length() > 0)
+			if (!(dayBox.getText().toString().length() >= 0)
 					|| (Integer.parseInt(dayBox.getText().toString())!=98
 					&& Integer.parseInt(dayBox.getText().toString())>31)) {
 				CommonStaticClass.showMyAlert(con, "Error",
@@ -14431,14 +14435,24 @@ else {
 		}
 
 		if (hourHolder.getVisibility() == View.VISIBLE) {
-			if (!(hourBox.getText().toString().length() > 0)) {
+			if (!(hourBox.getText().toString().length() >= 0)
+					|| Integer.parseInt(hourBox.getText().toString())>24) {
 				CommonStaticClass.showMyAlert(con, "Error",
 						"You must provide correct data to proceed");
 				return;
 			}
 		}
 		if (minHolder.getVisibility() == View.VISIBLE) {
-			if (!(minBox.getText().toString().length() > 0)) {
+			if (!(minBox.getText().toString().length() >= 0) 
+					|| Integer.parseInt(minBox.getText().toString())>60) {
+				CommonStaticClass.showMyAlert(con, "Error",
+						"You must provide correct data to proceed");
+				return;
+			}
+		}
+		if (secHolder.getVisibility() == View.VISIBLE) {
+			if (!(secBox.getText().toString().length() >= 0) 
+					|| Integer.parseInt(secBox.getText().toString())>60) {
 				CommonStaticClass.showMyAlert(con, "Error",
 						"You must provide correct data to proceed");
 				return;
@@ -14473,6 +14487,9 @@ else {
 		String minColumn = CommonStaticClass.questionMap.get(
 				CommonStaticClass.currentSLNo).getQvar()
 				+ "mins";
+		String secColumn = CommonStaticClass.questionMap.get(
+				CommonStaticClass.currentSLNo).getQvar()
+				+ "seconds";
 
 		int i = 0;
 		// +CommonStaticClass.questionMap.get(CommonStaticClass.currentSLNo).getQvar()+"='"+code+"' where dataid='"+CommonStaticClass.dataId+"'";
@@ -14517,6 +14534,13 @@ else {
 			sql += (i > 0 ? "," : "")
 					
 					+ minColumn + " = '" + min + "'";
+			i++;
+		}
+		if (secHolder.getVisibility() == View.VISIBLE) {
+			sec = secBox.getText().toString();
+			sql += (i > 0 ? "," : "")
+					
+					+ secColumn + " = '" + sec + "'";
 			i++;
 		}
 		sql += "where dataid='" + CommonStaticClass.dataId + "'";

@@ -502,6 +502,17 @@ public class CommonStaticClass {
 		}
 		return -1;
 	}
+	public static int GetIndexFromCollectionUsingID(ArrayList list, String value) {
+		Iterator Item = list.iterator();
+		int index = -1;
+		while (Item.hasNext()) {
+			index++;
+			if (Item.next().toString().contains(value+" :"))
+				return index;
+
+		}
+		return -1;
+	}
 
 	public static String getSkip(String column, String tablename,
 			DatabaseHelper dbHelper) {
