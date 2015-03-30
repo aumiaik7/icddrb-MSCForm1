@@ -7564,7 +7564,39 @@ public class ParentActivity extends BaseActivity implements FormListener {
 		// TODO Auto-generated method stub
 		qqq = (TextView) v.findViewById(R.id.qqq);
 
-		if (CommonStaticClass.langBng) {
+		//code by imtiaz khan
+		if(CommonStaticClass.questionMap
+				.get(CommonStaticClass.currentSLNo).getQvar().equalsIgnoreCase("q49z1"))
+		{
+			qqq.setText( Html.fromHtml("Sample ID: "+ CommonStaticClass.dataId+"EMZ01"));
+		}
+		else if(CommonStaticClass.questionMap
+					.get(CommonStaticClass.currentSLNo).getQvar().equalsIgnoreCase("q49z2"))
+		{
+			qqq.setText( Html.fromHtml("Sample ID: "+ CommonStaticClass.dataId+"EMZ02"));
+		}
+		else if( CommonStaticClass.questionMap
+					.get(CommonStaticClass.currentSLNo).getQvar().equalsIgnoreCase("q49z3")
+				)
+		{
+			qqq.setText( Html.fromHtml("Sample ID: "+ CommonStaticClass.dataId+"EMZ03"));
+		}
+		else if(CommonStaticClass.questionMap
+				.get(CommonStaticClass.currentSLNo).getQvar().equalsIgnoreCase("q50z1"))
+		{
+			qqq.setText( Html.fromHtml("Random ID: "+ getRandomId(CommonStaticClass.dataId+"EMZ01")));
+		}
+		else if(CommonStaticClass.questionMap
+				.get(CommonStaticClass.currentSLNo).getQvar().equalsIgnoreCase("q50z2"))
+		{
+			qqq.setText( Html.fromHtml("Random ID: "+ getRandomId(CommonStaticClass.dataId+"EMZ02")));
+		}
+		else if(CommonStaticClass.questionMap
+				.get(CommonStaticClass.currentSLNo).getQvar().equalsIgnoreCase("q50z3"))
+		{
+			qqq.setText( Html.fromHtml("Random ID: "+ getRandomId(CommonStaticClass.dataId+"EMZ03")));
+		}
+		else if (CommonStaticClass.langBng) {
 			if (CommonStaticClass.questionMap
 					.get(CommonStaticClass.currentSLNo).getQdescbng().length() > 0) {
 				Typeface font = Typeface.createFromAsset(getAssets(),
