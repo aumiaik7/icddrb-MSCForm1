@@ -1,5 +1,5 @@
-<com.icddrb.app.mscform1.TextViewBangla xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bngspin="http://schemas.android.com/apk/res/com.icddrb.app.mscform1"
+<com.icddrb.app.salimetricssaliva.TextViewBangla xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bngspin="http://schemas.android.com/apk/res/com.icddrb.app.salimetricssaliva"
     android:id="@android:id/text1"
     style="?android:attr/spinnerDropDownItemStyle"
     android:layout_width="match_parent"
